@@ -1,0 +1,5 @@
+name: 'Modal popup'
+type: module
+description: 'Provides a simple modal popup element and a text formatter.'
+package: Custom
+core_version_requirement: ^10 || ^11

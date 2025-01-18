@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Modal popup module.
+ */
+
+use Drupal\modal_popup\Element\ModalPopup;
+

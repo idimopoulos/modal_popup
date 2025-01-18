@@ -1,0 +1,6 @@
+modal_popup:
+  js:
+    js/modal-popup.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.dialog

@@ -1,0 +1,10 @@
+field.formatter.settings.modal_popup_text:
+  type: mapping
+  label: Text in modal formatter settings
+  mapping:
+    display_text:
+      type: string
+      label: 'Display text'
+    title:
+      type: string
+      label: 'Title'
