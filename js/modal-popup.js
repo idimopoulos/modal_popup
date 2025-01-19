@@ -21,8 +21,15 @@
               const content = contentContainer.innerHTML;
               const title = modalSettings.title || 'Modal';
 
-              // Initialize the Drupal dialog for this trigger.
-              const dialog = Drupal.dialog(`<div>${content}</div>`, {
+              // content has html_entities encoded. Decode them.
+              const parser = new DOMParser();
+              const decodedContent = parser.parseFromString(content, 'text/html').body.textContent;
+
+              // Encapsulate the content in <div> to ensure it's a valid HTML.
+              const div = document.createElement('div');
+              div.innerHTML = decodedContent;
+
+              const dialog = Drupal.dialog(div, {
                 title: title,
                 width: modalSettings.options?.width || 800,
                 height: modalSettings.options?.height || 600,

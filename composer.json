@@ -1,6 +1,6 @@
 {
     "name": "idimopoulos/modal_popup",
-    "description": "A Drupal 8 module that provides an element to display a modal popup.",
+    "description": "A Drupal 10 module that provides an element to display a modal popup.",
     "type": "drupal-module",
     "authors": [
         {

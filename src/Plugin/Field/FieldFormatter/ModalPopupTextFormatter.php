@@ -16,7 +16,13 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 #[FieldFormatter(
   id: 'modal_popup_text',
   label: new TranslatableMarkup('Modal popup'),
-  field_types: ['string', 'string_long', 'text', 'text_long', 'text_with_summary'],
+  field_types: [
+    'string',
+    'string_long',
+    'text',
+    'text_long',
+    'text_with_summary',
+  ],
 )]
 final class ModalPopupTextFormatter extends FormatterBase {
 
