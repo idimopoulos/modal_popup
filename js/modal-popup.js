@@ -25,9 +25,12 @@
               const parser = new DOMParser();
               const decodedContent = parser.parseFromString(content, 'text/html').body.textContent;
 
-              // Encapsulate the content in <div> to ensure it's a valid HTML.
+              // Encapsulate the content in a <div> element with a unique ID in
+              // order for the dialog to properly encapsulate it and not strip
+              // content.
               const div = document.createElement('div');
               div.innerHTML = decodedContent;
+              div.id = id + '-content';
 
               modalSettings.dialogClass = modalSettings.dialogClass || '';
               modalSettings.title = modalSettings.title || title;
