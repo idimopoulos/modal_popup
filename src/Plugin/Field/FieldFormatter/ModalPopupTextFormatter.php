@@ -33,6 +33,7 @@ final class ModalPopupTextFormatter extends FormatterBase {
     $settings['display_text'] = 'See more';
     $settings['title'] = '';
     $settings['trigger_element'] = 'button';
+    $settings['options'] = [];
     return $settings + parent::defaultSettings();
   }
 
@@ -67,6 +68,61 @@ final class ModalPopupTextFormatter extends FormatterBase {
       '#default_value' => $this->getSetting('trigger_element'),
     ];
 
+    $elements['options'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Options'),
+      '#open' => FALSE,
+    ];
+
+    $showOptions = [
+      'slideDown' => $this->t('Slide down'),
+      'slideUp' => $this->t('Slide up'),
+      'fadeIn' => $this->t('Fade in'),
+      'fadeOut' => $this->t('Fade out'),
+      'flip' => $this->t('Flip'),
+      'rotate' => $this->t('Rotate'),
+      'scale' => $this->t('Scale'),
+      'slide' => $this->t('Slide'),
+      'zoom' => $this->t('Zoom'),
+    ];
+
+    $elements['options']['show'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Show effect'),
+      '#description' => $this->t('The effect to use when showing the modal popup.'),
+      '#options' => $showOptions,
+      '#default_value' => $this->getSetting('options')['show'] ?? 'slideDown',
+    ];
+
+    $elements['options']['hide'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Hide effect'),
+      '#description' => $this->t('The effect to use when hiding the modal popup.'),
+      '#options' => $showOptions,
+      '#default_value' => $this->getSetting('options')['hide'] ?? 'slideUp',
+    ];
+
+    $elements['options']['duration'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Duration'),
+      '#description' => $this->t('The duration of the effect in milliseconds.'),
+      '#default_value' => $this->getSetting('options')['duration'] ?? 400,
+    ];
+
+    $elements['options']['draggable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Draggable'),
+      '#description' => $this->t('Allow the modal popup to be draggable.'),
+      '#default_value' => $this->getSetting('options')['draggable'] ?? FALSE,
+    ];
+
+    $elements['options']['resizable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Resizable'),
+      '#description' => $this->t('Allow the modal popup to be resizable.'),
+      '#default_value' => $this->getSetting('options')['resizable'] ?? FALSE,
+    ];
+
     return $elements;
   }
 
@@ -74,11 +130,17 @@ final class ModalPopupTextFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
-    return [
+    $summary = [
       $this->t('Display text: @display_text', ['@display_text' => $this->getSetting('display_text')]),
       $this->t('Title: @title', ['@title' => $this->getSetting('title') ?: $this->t('Parent entity title')]),
       $this->t('Trigger element: @trigger_element', ['@trigger_element' => $this->getSetting('trigger_element')]),
     ];
+
+    foreach ($this->getSetting('options') as $key => $value) {
+      $summary[] = $this->t('@key: @value', ['@key' => ucfirst($key), '@value' => $value]);
+    }
+
+    return $summary;
   }
 
   /**
@@ -96,6 +158,7 @@ final class ModalPopupTextFormatter extends FormatterBase {
         '#display_text' => $this->getSetting('display_text'),
         '#title' => $this->getSetting('title') ?: $item->getEntity()->label(),
         '#trigger_element' => $this->getSetting('trigger_element'),
+        '#options' => $this->getSetting('options'),
       ];
 
       // If type is processed_text, then we need to render the processed text.

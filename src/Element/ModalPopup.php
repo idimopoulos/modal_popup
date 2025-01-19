@@ -127,6 +127,7 @@ final class ModalPopup extends RenderElementBase {
     $element['#attached']['drupalSettings']['modal_popup'][$id] = [
       'title' => $element['#title'],
       'content' => $element['#content'],
+      ...$element['#options'],
     ];
 
     return $element;

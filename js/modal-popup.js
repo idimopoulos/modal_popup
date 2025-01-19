@@ -29,14 +29,14 @@
               const div = document.createElement('div');
               div.innerHTML = decodedContent;
 
-              const dialog = Drupal.dialog(div, {
-                title: title,
-                width: modalSettings.options?.width || 800,
-                height: modalSettings.options?.height || 600,
-                dialogClass: modalSettings.options?.dialogClass || '',
-                modal: true, // Ensure modal behavior
-                closeOnEscape: true, // Allow closing on Escape key press
-              });
+              modalSettings.dialogClass = modalSettings.dialogClass || '';
+              modalSettings.title = modalSettings.title || title;
+              modalSettings.width = modalSettings.width || 800;
+              modalSettings.height = modalSettings.height || 600;
+              modalSettings.modal = modalSettings.modal || true;
+              modalSettings.closeOnEscape = modalSettings.closeOnEscape || true;
+
+              const dialog = Drupal.dialog(div, modalSettings);
 
               // Attach custom behavior for clicking outside the modal (on overlay).
               dialog.showModal();
